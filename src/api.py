@@ -8,7 +8,10 @@ from src.llm_report import generate_report
 
 router = APIRouter()
 
-DATA_DIR = os.path.join("data", "customers")
+# Anchor to repo root so paths resolve correctly under both
+# `python app.py` (CWD=root) and Vercel's serverless runner.
+_REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+DATA_DIR = os.path.join(_REPO_ROOT, "data", "customers")
 
 def get_customer_data(cust_id: str):
     files = glob.glob(os.path.join(DATA_DIR, f"{cust_id}_*.json"))
