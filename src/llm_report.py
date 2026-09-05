@@ -59,7 +59,37 @@ explain how it differs from the customer's normal pattern using summary_facts, \
 and suggest one concrete next step for the investigator.
 4. Do not invent any transaction ID not present in the evidence you were given.
 5. If findings list is empty, say so in 1-2 sentences. Do not manufacture concern.
+6. Write full sentences for the narrative. Never output raw JSON, dict syntax, or key:value pairs in the narrative.
 """
+
+
+def _format_summary_facts(f: Finding) -> str:
+    facts = f.summary_facts
+    rule = f.rule_id
+
+    if rule == "Rule 1":
+        tx_amt = facts.get('transaction_amount', 0)
+        median = facts.get('median_amount', 1)
+        multiplier = round(tx_amt / median) if median else 0
+        return f"This transaction of ₹{tx_amt:,.2f} is roughly {multiplier}x this customer's typical transaction amount of ₹{median:,.2f}."
+    
+    elif rule == "Rule 2":
+        return f"This customer made {facts.get('burst_count')} transactions to a newly added payee '{facts.get('payee')}' within a {facts.get('time_window_days')}-day window, after {facts.get('baseline_txns')} prior transactions with no history to this payee."
+    
+    elif rule == "Rule 3":
+        dt_str = facts.get('transaction_time', '')
+        try:
+            from datetime import datetime
+            dt = datetime.fromisoformat(dt_str)
+            time_str = dt.strftime("%I:%M %p on %Y-%m-%d")
+        except:
+            time_str = dt_str
+        return f"This transaction occurred at {time_str}. This customer has no history of transacting during odd hours (0 of their prior {facts.get('total_prior_transactions')} transactions)."
+        
+    elif rule == "Rule 4":
+        return f"This transaction amount of ₹{facts.get('transaction_amount', 0):,.2f} deviates significantly from the customer's typical range (z-score: {facts.get('z_score')}, mean: ₹{facts.get('mean', 0):,.2f})."
+        
+    return json.dumps(facts)
 
 
 def generate_fallback_report(findings: List[Finding]) -> Tuple[str, str]:
@@ -75,7 +105,7 @@ def generate_fallback_report(findings: List[Finding]) -> Tuple[str, str]:
     for i, f in enumerate(findings, 1):
         lines.append(f"Finding {i}: {f.rule_id}")
         lines.append(f"  Evidence transactions : {', '.join(f.evidence)}")
-        lines.append(f"  Summary facts         : {json.dumps(f.summary_facts)}")
+        lines.append(f"  Summary facts         : {_format_summary_facts(f)}")
         lines.append("  Recommended action    : Investigator should manually review the above transactions.\n")
 
     return verdict, "\n".join(lines)
