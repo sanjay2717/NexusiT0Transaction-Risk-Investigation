@@ -13,55 +13,84 @@ router = APIRouter()
 _REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA_DIR = os.path.join(_REPO_ROOT, "data", "customers")
 
-def get_customer_data(cust_id: str):
-    files = glob.glob(os.path.join(DATA_DIR, f"{cust_id}_*.json"))
-    if not files:
-        raise HTTPException(status_code=404, detail="Customer not found")
-        
-    with open(files[0], 'r') as f:
-        data = json.load(f)
-        
+
+def _load_file(cust_id: str) -> dict:
+    """Load customer JSON by ID. Supports both C001.json and legacy C001_*.json."""
+    # Prefer exact match first (new naming), fall back to wildcard (old naming)
+    exact = os.path.join(DATA_DIR, f"{cust_id}.json")
+    if os.path.exists(exact):
+        path = exact
+    else:
+        matches = glob.glob(os.path.join(DATA_DIR, f"{cust_id}_*.json"))
+        if not matches:
+            raise HTTPException(status_code=404, detail=f"Customer '{cust_id}' not found")
+        path = matches[0]
+
+    with open(path, "r") as f:
+        return json.load(f)
+
+
+def get_customer_data(cust_id: str) -> Customer:
+    data = _load_file(cust_id)
+
+    # Sanitise transactions: skip any record missing required fields
+    required = {"txn_id", "date", "description", "payee", "amount", "channel"}
     valid_txns = []
-    required_fields = ['txn_id', 'date', 'description', 'payee', 'amount', 'channel']
-    for t in data.get('transactions', []):
+    for t in data.get("transactions", []):
         try:
-            if all(f in t for f in required_fields):
+            if required.issubset(t.keys()):
                 valid_txns.append(t)
             else:
-                print(f"Skipping malformed transaction in {cust_id}")
-        except Exception:
-            pass
-    data['transactions'] = valid_txns
-    
-    return Customer(**data)
+                missing = required - t.keys()
+                print(f"[api] Skipping malformed txn in {cust_id}: missing {missing}")
+        except Exception as exc:
+            print(f"[api] Error parsing txn in {cust_id}: {exc}")
+
+    data["transactions"] = valid_txns
+
+    # Strip non-model fields before constructing Customer
+    customer_fields = {"customer_id", "account_opened", "transactions"}
+    clean = {k: v for k, v in data.items() if k in customer_fields}
+    return Customer(**clean)
+
 
 @router.get("/api/customers")
 def list_customers():
+    """Return list of {id, name} for the customer picker."""
     customers = []
-    if os.path.exists(DATA_DIR):
-        for filename in os.listdir(DATA_DIR):
-            if filename.endswith(".json"):
-                parts = filename.replace(".json", "").split("_", 1)
-                cust_id = parts[0]
-                name = filename.replace(".json", "")
-                customers.append({"id": cust_id, "name": name})
+    if not os.path.exists(DATA_DIR):
+        return customers
+
+    for filename in os.listdir(DATA_DIR):
+        if not filename.endswith(".json"):
+            continue
+        path = os.path.join(DATA_DIR, filename)
+        try:
+            with open(path) as f:
+                raw = json.load(f)
+            cust_id = raw.get("customer_id", filename.replace(".json", ""))
+            # Use the name field if present; fall back to customer_id
+            name = raw.get("name", cust_id)
+            customers.append({"id": cust_id, "name": name})
+        except Exception as exc:
+            print(f"[api] Could not read {filename}: {exc}")
+
     return sorted(customers, key=lambda x: x["id"])
+
 
 @router.get("/api/customers/{cust_id}/report")
 def get_customer_report(cust_id: str):
     customer = get_customer_data(cust_id)
     findings = get_all_findings(customer)
     verdict, narrative = generate_report(findings)
-    
-    findings_dict = []
-    for f in findings:
-        if hasattr(f, 'model_dump'):
-            findings_dict.append(f.model_dump())
-        else:
-            findings_dict.append(f.dict())
-            
+
+    findings_dict = [
+        f.model_dump() if hasattr(f, "model_dump") else f.dict()
+        for f in findings
+    ]
+
     return {
         "verdict": verdict,
         "findings": findings_dict,
-        "narrative": narrative
+        "narrative": narrative,
     }

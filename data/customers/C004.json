@@ -1,0 +1,855 @@
+{
+  "customer_id": "C004",
+  "name": "Sneha Kapoor",
+  "account_opened": "2023-01-01",
+  "transactions": [
+    {
+      "txn_id": "T_C004_95",
+      "date": "2025-12-03T19:12:00",
+      "description": "Purchase",
+      "payee": "Gas Station",
+      "amount": 4980.62,
+      "channel": "Debit Card"
+    },
+    {
+      "txn_id": "T_C004_35",
+      "date": "2025-12-04T15:28:00",
+      "description": "Subscription",
+      "payee": "Grocery Store",
+      "amount": 2119.63,
+      "channel": "Credit Card"
+    },
+    {
+      "txn_id": "T_C004_17",
+      "date": "2025-12-06T06:34:00",
+      "description": "Payment",
+      "payee": "Grocery Store",
+      "amount": 2982.4,
+      "channel": "Debit Card"
+    },
+    {
+      "txn_id": "T_C004_30",
+      "date": "2025-12-13T09:27:00",
+      "description": "Payment",
+      "payee": "Amazon",
+      "amount": 1544.65,
+      "channel": "Net Banking"
+    },
+    {
+      "txn_id": "T_C004_103",
+      "date": "2025-12-16T22:36:00",
+      "description": "Purchase",
+      "payee": "Local Restaurant",
+      "amount": 538.14,
+      "channel": "Debit Card"
+    },
+    {
+      "txn_id": "T_C004_89",
+      "date": "2025-12-17T08:25:00",
+      "description": "Subscription",
+      "payee": "Gas Station",
+      "amount": 2820.26,
+      "channel": "Debit Card"
+    },
+    {
+      "txn_id": "T_C004_76",
+      "date": "2025-12-19T06:50:00",
+      "description": "Subscription",
+      "payee": "Grocery Store",
+      "amount": 3924.75,
+      "channel": "Debit Card"
+    },
+    {
+      "txn_id": "T_C004_36",
+      "date": "2025-12-19T11:27:00",
+      "description": "Transfer",
+      "payee": "Grocery Store",
+      "amount": 2519.8,
+      "channel": "UPI"
+    },
+    {
+      "txn_id": "T_C004_37",
+      "date": "2025-12-20T17:35:00",
+      "description": "Subscription",
+      "payee": "Local Restaurant",
+      "amount": 918.79,
+      "channel": "UPI"
+    },
+    {
+      "txn_id": "T_C004_22",
+      "date": "2025-12-21T18:24:00",
+      "description": "Transfer",
+      "payee": "Grocery Store",
+      "amount": 2197.26,
+      "channel": "UPI"
+    },
+    {
+      "txn_id": "T_C004_99",
+      "date": "2025-12-28T13:33:00",
+      "description": "Payment",
+      "payee": "Grocery Store",
+      "amount": 3559.92,
+      "channel": "Debit Card"
+    },
+    {
+      "txn_id": "T_C004_40",
+      "date": "2025-12-31T08:10:00",
+      "description": "Transfer",
+      "payee": "Amazon",
+      "amount": 2456.04,
+      "channel": "Net Banking"
+    },
+    {
+      "txn_id": "T_C004_96",
+      "date": "2026-01-02T14:05:00",
+      "description": "Subscription",
+      "payee": "Grocery Store",
+      "amount": 3445.65,
+      "channel": "Debit Card"
+    },
+    {
+      "txn_id": "T_C004_28",
+      "date": "2026-01-03T13:36:00",
+      "description": "Transfer",
+      "payee": "Gas Station",
+      "amount": 4255.93,
+      "channel": "Debit Card"
+    },
+    {
+      "txn_id": "T_C004_45",
+      "date": "2026-01-06T18:20:00",
+      "description": "Transfer",
+      "payee": "Netflix",
+      "amount": 1811.52,
+      "channel": "Credit Card"
+    },
+    {
+      "txn_id": "T_C004_65",
+      "date": "2026-01-11T14:48:00",
+      "description": "Payment",
+      "payee": "Netflix",
+      "amount": 3666.92,
+      "channel": "UPI"
+    },
+    {
+      "txn_id": "T_C004_27",
+      "date": "2026-01-12T10:48:00",
+      "description": "Transfer",
+      "payee": "Grocery Store",
+      "amount": 4193.11,
+      "channel": "Debit Card"
+    },
+    {
+      "txn_id": "T_C004_5",
+      "date": "2026-01-13T12:47:00",
+      "description": "Transfer",
+      "payee": "Electric Board",
+      "amount": 1027.92,
+      "channel": "Credit Card"
+    },
+    {
+      "txn_id": "T_C004_55",
+      "date": "2026-01-15T22:47:00",
+      "description": "Purchase",
+      "payee": "Local Restaurant",
+      "amount": 2834.59,
+      "channel": "Debit Card"
+    },
+    {
+      "txn_id": "T_C004_77",
+      "date": "2026-01-15T23:18:00",
+      "description": "Transfer",
+      "payee": "Netflix",
+      "amount": 1256.94,
+      "channel": "Net Banking"
+    },
+    {
+      "txn_id": "T_C004_101",
+      "date": "2026-01-16T18:05:00",
+      "description": "Payment",
+      "payee": "Grocery Store",
+      "amount": 3788.44,
+      "channel": "Debit Card"
+    },
+    {
+      "txn_id": "T_C004_87",
+      "date": "2026-01-20T10:45:00",
+      "description": "Purchase",
+      "payee": "Gas Station",
+      "amount": 1949.44,
+      "channel": "Net Banking"
+    },
+    {
+      "txn_id": "T_C004_2",
+      "date": "2026-01-21T12:21:00",
+      "description": "Transfer",
+      "payee": "Amazon",
+      "amount": 3410.18,
+      "channel": "UPI"
+    },
+    {
+      "txn_id": "T_C004_67",
+      "date": "2026-01-22T21:33:00",
+      "description": "Subscription",
+      "payee": "Netflix",
+      "amount": 4846.62,
+      "channel": "Net Banking"
+    },
+    {
+      "txn_id": "T_C004_85",
+      "date": "2026-01-28T14:54:00",
+      "description": "Payment",
+      "payee": "Electric Board",
+      "amount": 2814.87,
+      "channel": "Net Banking"
+    },
+    {
+      "txn_id": "T_C004_38",
+      "date": "2026-01-28T19:24:00",
+      "description": "Purchase",
+      "payee": "Netflix",
+      "amount": 4006.26,
+      "channel": "Credit Card"
+    },
+    {
+      "txn_id": "T_C004_60",
+      "date": "2026-01-30T07:51:00",
+      "description": "Payment",
+      "payee": "Amazon",
+      "amount": 3698.51,
+      "channel": "UPI"
+    },
+    {
+      "txn_id": "T_C004_70",
+      "date": "2026-02-01T09:15:00",
+      "description": "Purchase",
+      "payee": "Amazon",
+      "amount": 1874.21,
+      "channel": "Credit Card"
+    },
+    {
+      "txn_id": "T_C004_46",
+      "date": "2026-02-04T18:17:00",
+      "description": "Transfer",
+      "payee": "Amazon",
+      "amount": 4174.23,
+      "channel": "UPI"
+    },
+    {
+      "txn_id": "T_C004_43",
+      "date": "2026-02-05T18:51:00",
+      "description": "Transfer",
+      "payee": "Amazon",
+      "amount": 4379.89,
+      "channel": "Net Banking"
+    },
+    {
+      "txn_id": "T_C004_81",
+      "date": "2026-02-08T08:28:00",
+      "description": "Payment",
+      "payee": "Electric Board",
+      "amount": 4393.81,
+      "channel": "Credit Card"
+    },
+    {
+      "txn_id": "T_C004_58",
+      "date": "2026-02-08T15:21:00",
+      "description": "Purchase",
+      "payee": "Netflix",
+      "amount": 2549.0,
+      "channel": "Net Banking"
+    },
+    {
+      "txn_id": "T_C004_59",
+      "date": "2026-02-08T21:06:00",
+      "description": "Transfer",
+      "payee": "Amazon",
+      "amount": 2471.75,
+      "channel": "UPI"
+    },
+    {
+      "txn_id": "T_C004_32",
+      "date": "2026-02-10T23:24:00",
+      "description": "Transfer",
+      "payee": "Grocery Store",
+      "amount": 2443.32,
+      "channel": "Debit Card"
+    },
+    {
+      "txn_id": "T_C004_102",
+      "date": "2026-02-12T15:08:00",
+      "description": "Purchase",
+      "payee": "Gas Station",
+      "amount": 2222.24,
+      "channel": "Credit Card"
+    },
+    {
+      "txn_id": "T_C004_16",
+      "date": "2026-02-13T07:39:00",
+      "description": "Transfer",
+      "payee": "Gas Station",
+      "amount": 3369.78,
+      "channel": "Net Banking"
+    },
+    {
+      "txn_id": "T_C004_29",
+      "date": "2026-02-15T10:50:00",
+      "description": "Payment",
+      "payee": "Netflix",
+      "amount": 4948.15,
+      "channel": "Debit Card"
+    },
+    {
+      "txn_id": "T_C004_56",
+      "date": "2026-02-16T20:49:00",
+      "description": "Purchase",
+      "payee": "Amazon",
+      "amount": 3558.0,
+      "channel": "UPI"
+    },
+    {
+      "txn_id": "T_C004_6",
+      "date": "2026-02-18T13:35:00",
+      "description": "Subscription",
+      "payee": "Local Restaurant",
+      "amount": 1947.27,
+      "channel": "Net Banking"
+    },
+    {
+      "txn_id": "T_C004_75",
+      "date": "2026-02-20T21:26:00",
+      "description": "Transfer",
+      "payee": "Local Restaurant",
+      "amount": 3695.64,
+      "channel": "Credit Card"
+    },
+    {
+      "txn_id": "T_C004_9",
+      "date": "2026-02-21T07:36:00",
+      "description": "Purchase",
+      "payee": "Grocery Store",
+      "amount": 4388.38,
+      "channel": "Debit Card"
+    },
+    {
+      "txn_id": "T_C004_98",
+      "date": "2026-02-24T08:45:00",
+      "description": "Purchase",
+      "payee": "Local Restaurant",
+      "amount": 928.33,
+      "channel": "UPI"
+    },
+    {
+      "txn_id": "T_C004_90",
+      "date": "2026-03-01T21:20:00",
+      "description": "Payment",
+      "payee": "Gas Station",
+      "amount": 3118.8,
+      "channel": "Net Banking"
+    },
+    {
+      "txn_id": "T_C004_21",
+      "date": "2026-03-02T13:44:00",
+      "description": "Payment",
+      "payee": "Gas Station",
+      "amount": 1516.36,
+      "channel": "UPI"
+    },
+    {
+      "txn_id": "T_C004_57",
+      "date": "2026-03-06T09:18:00",
+      "description": "Payment",
+      "payee": "Grocery Store",
+      "amount": 2371.89,
+      "channel": "Credit Card"
+    },
+    {
+      "txn_id": "T_C004_72",
+      "date": "2026-03-07T23:44:00",
+      "description": "Purchase",
+      "payee": "Netflix",
+      "amount": 4636.22,
+      "channel": "Credit Card"
+    },
+    {
+      "txn_id": "T_C004_88",
+      "date": "2026-03-08T10:36:00",
+      "description": "Transfer",
+      "payee": "Local Restaurant",
+      "amount": 3345.81,
+      "channel": "Net Banking"
+    },
+    {
+      "txn_id": "T_C004_73",
+      "date": "2026-03-08T15:08:00",
+      "description": "Transfer",
+      "payee": "Netflix",
+      "amount": 1341.94,
+      "channel": "UPI"
+    },
+    {
+      "txn_id": "T_C004_71",
+      "date": "2026-03-12T18:26:00",
+      "description": "Transfer",
+      "payee": "Local Restaurant",
+      "amount": 3183.92,
+      "channel": "Credit Card"
+    },
+    {
+      "txn_id": "T_C004_84",
+      "date": "2026-03-16T14:38:00",
+      "description": "Subscription",
+      "payee": "Gas Station",
+      "amount": 2924.46,
+      "channel": "Debit Card"
+    },
+    {
+      "txn_id": "T_C004_7",
+      "date": "2026-03-16T17:19:00",
+      "description": "Transfer",
+      "payee": "Local Restaurant",
+      "amount": 1677.03,
+      "channel": "UPI"
+    },
+    {
+      "txn_id": "T_C004_3",
+      "date": "2026-03-17T12:03:00",
+      "description": "Payment",
+      "payee": "Grocery Store",
+      "amount": 1708.08,
+      "channel": "Credit Card"
+    },
+    {
+      "txn_id": "T_C004_18",
+      "date": "2026-03-17T15:01:00",
+      "description": "Transfer",
+      "payee": "Electric Board",
+      "amount": 2759.97,
+      "channel": "UPI"
+    },
+    {
+      "txn_id": "T_C004_79",
+      "date": "2026-03-18T07:48:00",
+      "description": "Purchase",
+      "payee": "Local Restaurant",
+      "amount": 3735.41,
+      "channel": "UPI"
+    },
+    {
+      "txn_id": "T_C004_78",
+      "date": "2026-03-19T22:07:00",
+      "description": "Subscription",
+      "payee": "Netflix",
+      "amount": 3077.21,
+      "channel": "Debit Card"
+    },
+    {
+      "txn_id": "T_C004_62",
+      "date": "2026-03-20T11:21:00",
+      "description": "Transfer",
+      "payee": "Electric Board",
+      "amount": 3019.32,
+      "channel": "Net Banking"
+    },
+    {
+      "txn_id": "T_C004_10",
+      "date": "2026-03-20T19:18:00",
+      "description": "Subscription",
+      "payee": "Electric Board",
+      "amount": 1185.85,
+      "channel": "Net Banking"
+    },
+    {
+      "txn_id": "T_C004_24",
+      "date": "2026-03-22T09:57:00",
+      "description": "Payment",
+      "payee": "Electric Board",
+      "amount": 2876.72,
+      "channel": "Credit Card"
+    },
+    {
+      "txn_id": "T_C004_47",
+      "date": "2026-03-22T12:37:00",
+      "description": "Purchase",
+      "payee": "Gas Station",
+      "amount": 4987.69,
+      "channel": "UPI"
+    },
+    {
+      "txn_id": "T_C004_1",
+      "date": "2026-03-22T19:26:00",
+      "description": "Purchase",
+      "payee": "Local Restaurant",
+      "amount": 3007.79,
+      "channel": "Credit Card"
+    },
+    {
+      "txn_id": "T_C004_93",
+      "date": "2026-03-22T21:50:00",
+      "description": "Payment",
+      "payee": "Grocery Store",
+      "amount": 2046.83,
+      "channel": "UPI"
+    },
+    {
+      "txn_id": "T_C004_11",
+      "date": "2026-03-23T13:31:00",
+      "description": "Subscription",
+      "payee": "Amazon",
+      "amount": 2977.89,
+      "channel": "Net Banking"
+    },
+    {
+      "txn_id": "T_C004_42",
+      "date": "2026-03-28T12:29:00",
+      "description": "Subscription",
+      "payee": "Grocery Store",
+      "amount": 981.38,
+      "channel": "Net Banking"
+    },
+    {
+      "txn_id": "T_C004_51",
+      "date": "2026-03-29T21:37:00",
+      "description": "Transfer",
+      "payee": "Netflix",
+      "amount": 2303.62,
+      "channel": "UPI"
+    },
+    {
+      "txn_id": "T_C004_68",
+      "date": "2026-03-31T18:37:00",
+      "description": "Subscription",
+      "payee": "Local Restaurant",
+      "amount": 1014.04,
+      "channel": "Credit Card"
+    },
+    {
+      "txn_id": "T_C004_94",
+      "date": "2026-04-03T20:01:00",
+      "description": "Purchase",
+      "payee": "Local Restaurant",
+      "amount": 1059.07,
+      "channel": "Net Banking"
+    },
+    {
+      "txn_id": "T_C004_63",
+      "date": "2026-04-04T11:11:00",
+      "description": "Transfer",
+      "payee": "Local Restaurant",
+      "amount": 3382.15,
+      "channel": "UPI"
+    },
+    {
+      "txn_id": "T_C004_91",
+      "date": "2026-04-05T17:54:00",
+      "description": "Transfer",
+      "payee": "Electric Board",
+      "amount": 784.99,
+      "channel": "Net Banking"
+    },
+    {
+      "txn_id": "T_C004_50",
+      "date": "2026-04-09T10:45:00",
+      "description": "Transfer",
+      "payee": "Grocery Store",
+      "amount": 2404.08,
+      "channel": "Net Banking"
+    },
+    {
+      "txn_id": "T_C004_53",
+      "date": "2026-04-09T17:10:00",
+      "description": "Payment",
+      "payee": "Netflix",
+      "amount": 3411.5,
+      "channel": "Net Banking"
+    },
+    {
+      "txn_id": "T_C004_97",
+      "date": "2026-04-11T11:03:00",
+      "description": "Subscription",
+      "payee": "Gas Station",
+      "amount": 2283.54,
+      "channel": "Credit Card"
+    },
+    {
+      "txn_id": "T_C004_61",
+      "date": "2026-04-13T11:59:00",
+      "description": "Purchase",
+      "payee": "Netflix",
+      "amount": 4927.55,
+      "channel": "Credit Card"
+    },
+    {
+      "txn_id": "T_C004_39",
+      "date": "2026-04-15T18:10:00",
+      "description": "Subscription",
+      "payee": "Amazon",
+      "amount": 1124.78,
+      "channel": "Net Banking"
+    },
+    {
+      "txn_id": "T_C004_23",
+      "date": "2026-04-18T11:05:00",
+      "description": "Transfer",
+      "payee": "Gas Station",
+      "amount": 2749.36,
+      "channel": "Debit Card"
+    },
+    {
+      "txn_id": "T_C004_34",
+      "date": "2026-04-20T10:47:00",
+      "description": "Subscription",
+      "payee": "Grocery Store",
+      "amount": 2253.3,
+      "channel": "UPI"
+    },
+    {
+      "txn_id": "T_C004_13",
+      "date": "2026-04-21T23:31:00",
+      "description": "Payment",
+      "payee": "Netflix",
+      "amount": 1328.21,
+      "channel": "UPI"
+    },
+    {
+      "txn_id": "T_C004_104",
+      "date": "2026-04-22T12:40:00",
+      "description": "Transfer",
+      "payee": "Netflix",
+      "amount": 3867.21,
+      "channel": "Net Banking"
+    },
+    {
+      "txn_id": "T_C004_12",
+      "date": "2026-04-22T21:29:00",
+      "description": "Subscription",
+      "payee": "Electric Board",
+      "amount": 1257.05,
+      "channel": "Credit Card"
+    },
+    {
+      "txn_id": "T_C004_48",
+      "date": "2026-04-23T20:45:00",
+      "description": "Subscription",
+      "payee": "Gas Station",
+      "amount": 1443.42,
+      "channel": "UPI"
+    },
+    {
+      "txn_id": "T_C004_80",
+      "date": "2026-04-24T13:19:00",
+      "description": "Payment",
+      "payee": "Local Restaurant",
+      "amount": 4436.64,
+      "channel": "Debit Card"
+    },
+    {
+      "txn_id": "T_C004_64",
+      "date": "2026-04-25T12:28:00",
+      "description": "Transfer",
+      "payee": "Grocery Store",
+      "amount": 3164.91,
+      "channel": "Credit Card"
+    },
+    {
+      "txn_id": "T_C004_54",
+      "date": "2026-04-28T16:50:00",
+      "description": "Payment",
+      "payee": "Grocery Store",
+      "amount": 2437.05,
+      "channel": "Debit Card"
+    },
+    {
+      "txn_id": "T_C004_31",
+      "date": "2026-05-02T16:01:00",
+      "description": "Transfer",
+      "payee": "Local Restaurant",
+      "amount": 3353.55,
+      "channel": "Credit Card"
+    },
+    {
+      "txn_id": "T_C004_41",
+      "date": "2026-05-03T08:23:00",
+      "description": "Purchase",
+      "payee": "Gas Station",
+      "amount": 1632.65,
+      "channel": "Net Banking"
+    },
+    {
+      "txn_id": "T_C004_83",
+      "date": "2026-05-04T12:52:00",
+      "description": "Payment",
+      "payee": "Netflix",
+      "amount": 1431.24,
+      "channel": "Debit Card"
+    },
+    {
+      "txn_id": "T_C004_52",
+      "date": "2026-05-05T17:44:00",
+      "description": "Payment",
+      "payee": "Grocery Store",
+      "amount": 4529.76,
+      "channel": "Credit Card"
+    },
+    {
+      "txn_id": "T_C004_33",
+      "date": "2026-05-06T13:45:00",
+      "description": "Subscription",
+      "payee": "Electric Board",
+      "amount": 830.78,
+      "channel": "Net Banking"
+    },
+    {
+      "txn_id": "T_C004_8",
+      "date": "2026-05-07T21:48:00",
+      "description": "Purchase",
+      "payee": "Amazon",
+      "amount": 4278.79,
+      "channel": "Debit Card"
+    },
+    {
+      "txn_id": "T_C004_66",
+      "date": "2026-05-07T23:11:00",
+      "description": "Purchase",
+      "payee": "Local Restaurant",
+      "amount": 2146.07,
+      "channel": "UPI"
+    },
+    {
+      "txn_id": "T_C004_4",
+      "date": "2026-05-08T23:13:00",
+      "description": "Subscription",
+      "payee": "Amazon",
+      "amount": 2657.27,
+      "channel": "UPI"
+    },
+    {
+      "txn_id": "T_C004_82",
+      "date": "2026-05-09T17:55:00",
+      "description": "Transfer",
+      "payee": "Electric Board",
+      "amount": 3698.39,
+      "channel": "Credit Card"
+    },
+    {
+      "txn_id": "T_C004_100",
+      "date": "2026-05-10T09:55:00",
+      "description": "Purchase",
+      "payee": "Local Restaurant",
+      "amount": 2400.41,
+      "channel": "UPI"
+    },
+    {
+      "txn_id": "T_C004_44",
+      "date": "2026-05-10T10:19:00",
+      "description": "Purchase",
+      "payee": "Local Restaurant",
+      "amount": 1942.99,
+      "channel": "Debit Card"
+    },
+    {
+      "txn_id": "T_C004_69",
+      "date": "2026-05-10T15:58:00",
+      "description": "Payment",
+      "payee": "Gas Station",
+      "amount": 3265.18,
+      "channel": "Credit Card"
+    },
+    {
+      "txn_id": "T_C004_20",
+      "date": "2026-05-10T17:17:00",
+      "description": "Payment",
+      "payee": "Amazon",
+      "amount": 4077.21,
+      "channel": "Net Banking"
+    },
+    {
+      "txn_id": "T_C004_49",
+      "date": "2026-05-11T19:43:00",
+      "description": "Subscription",
+      "payee": "Electric Board",
+      "amount": 2746.86,
+      "channel": "Debit Card"
+    },
+    {
+      "txn_id": "T_C004_92",
+      "date": "2026-05-12T12:31:00",
+      "description": "Subscription",
+      "payee": "Amazon",
+      "amount": 1708.42,
+      "channel": "Credit Card"
+    },
+    {
+      "txn_id": "T_C004_14",
+      "date": "2026-05-14T08:52:00",
+      "description": "Payment",
+      "payee": "Local Restaurant",
+      "amount": 3506.97,
+      "channel": "Credit Card"
+    },
+    {
+      "txn_id": "T_C004_15",
+      "date": "2026-05-15T13:04:00",
+      "description": "Payment",
+      "payee": "Electric Board",
+      "amount": 3682.26,
+      "channel": "Net Banking"
+    },
+    {
+      "txn_id": "T_C004_0",
+      "date": "2026-05-16T13:19:00",
+      "description": "Purchase",
+      "payee": "Local Restaurant",
+      "amount": 4358.94,
+      "channel": "UPI"
+    },
+    {
+      "txn_id": "T_C004_74",
+      "date": "2026-05-20T17:00:00",
+      "description": "Purchase",
+      "payee": "Local Restaurant",
+      "amount": 2680.74,
+      "channel": "Net Banking"
+    },
+    {
+      "txn_id": "T_C004_26",
+      "date": "2026-05-26T23:36:00",
+      "description": "Purchase",
+      "payee": "Amazon",
+      "amount": 3461.49,
+      "channel": "UPI"
+    },
+    {
+      "txn_id": "T_C004_25",
+      "date": "2026-05-27T21:17:00",
+      "description": "Payment",
+      "payee": "Gas Station",
+      "amount": 709.53,
+      "channel": "Debit Card"
+    },
+    {
+      "txn_id": "T_C004_86",
+      "date": "2026-05-30T07:17:00",
+      "description": "Purchase",
+      "payee": "Gas Station",
+      "amount": 4401.71,
+      "channel": "Credit Card"
+    },
+    {
+      "txn_id": "T_C004_19",
+      "date": "2026-05-30T09:33:00",
+      "description": "Purchase",
+      "payee": "Netflix",
+      "amount": 1170.04,
+      "channel": "Debit Card"
+    },
+    {
+      "txn_id": "T_C004_odd",
+      "date": "2026-06-02T02:30:00",
+      "description": "Transfer",
+      "payee": "Night Owl Traders",
+      "amount": 1500.0,
+      "channel": "Credit Card"
+    }
+  ]
+}

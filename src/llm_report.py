@@ -1,71 +1,81 @@
 import os
 import json
-import google.generativeai as genai
+import traceback
 from typing import List, Tuple
 from src.models import Finding
 
 def generate_report(findings: List[Finding]) -> Tuple[str, str]:
     api_key = os.environ.get("GEMINI_API_KEY")
     if not api_key:
-        print("No GEMINI_API_KEY found, using fallback report.")
-        return generate_fallback_report(findings)
-        
-    genai.configure(api_key=api_key)
-        
-    prompt = _build_prompt(findings)
-    try:
-        model = genai.GenerativeModel('gemini-1.5-pro')
-        response = model.generate_content(prompt) 
-        
-        text = response.text.strip()
-        lines = text.split('\n')
-        verdict = lines[0].strip()
-        narrative = '\n'.join(lines[1:]).strip()
-        
-        return verdict, narrative
-    except Exception as e:
-        print(f"Gemini call failed: {e}")
+        print("[llm_report] No GEMINI_API_KEY in environment — using fallback template.")
         return generate_fallback_report(findings)
 
+    try:
+        # Use the current google-genai SDK (google.generativeai is deprecated)
+        import google.generativeai as genai  # type: ignore
+        genai.configure(api_key=api_key)
+        model = genai.GenerativeModel("gemini-1.5-flash")
+        prompt = _build_prompt(findings)
+        response = model.generate_content(prompt)
+        text = response.text.strip()
+        lines = text.split("\n")
+        verdict = lines[0].strip()
+        narrative = "\n".join(lines[1:]).strip()
+        return verdict, narrative
+
+    except ImportError as e:
+        print(f"[llm_report] ImportError — SDK not installed: {type(e).__name__}: {e}")
+        traceback.print_exc()
+    except Exception as e:
+        print(f"[llm_report] Gemini call failed: {type(e).__name__}: {e}")
+        traceback.print_exc()
+
+    return generate_fallback_report(findings)
+
+
 def _build_prompt(findings: List[Finding]) -> str:
-    # Use standard dict serialization for Pydantic v2 support
-    findings_json = []
-    for f in findings:
-        # Fallback to model_dump() or dict() depending on pydantic version
-        if hasattr(f, 'model_dump'):
-            findings_json.append(f.model_dump())
-        else:
-            findings_json.append(f.dict())
-            
+    findings_json = [
+        f.model_dump() if hasattr(f, "model_dump") else f.dict()
+        for f in findings
+    ]
     findings_str = json.dumps(findings_json, indent=2)
-    
+
     return f"""You are a Transaction Risk Investigation Assistant.
-    
-You are given ONLY a structured findings object for one customer — no raw transaction history beyond what's listed as evidence.
+
+You are given ONLY a structured findings object for one customer — no raw \
+transaction history beyond what is listed as evidence.
 
 Structured Findings:
 {findings_str}
 
 Instructions:
-1. Never state or imply fraud has occurred. Use language like "warrants review," "worth investigating," never "is fraudulent."
-2. Lead with the verdict as the VERY FIRST LINE of your response: either "No findings — this history looks consistent with the customer's established pattern" or "N finding(s) identified." (replace N with the actual count).
-3. Then provide the narrative. For each finding: which rule, which transactions (cite txn_ids exactly as given), how it differs from this customer's normal pattern (use the summary_facts you were given), and one concrete next step for the investigator.
+1. Never state or imply fraud has occurred. Use language like "warrants review," \
+"worth investigating," never "is fraudulent."
+2. The VERY FIRST LINE of your response must be the verdict:
+   - If no findings: "No findings — this history looks consistent with the customer's established pattern"
+   - Otherwise: "N finding(s) identified." (replace N with the actual count)
+3. For each finding: state which rule, cite txn_ids exactly as given in evidence, \
+explain how it differs from the customer's normal pattern using summary_facts, \
+and suggest one concrete next step for the investigator.
 4. Do not invent any transaction ID not present in the evidence you were given.
-5. If findings list is empty, say so plainly in 1-2 sentences. Do not manufacture concern.
+5. If findings list is empty, say so in 1-2 sentences. Do not manufacture concern.
 """
+
 
 def generate_fallback_report(findings: List[Finding]) -> Tuple[str, str]:
     if not findings:
         verdict = "No findings — this history looks consistent with the customer's established pattern"
-        narrative = "The rule engine found no anomalies. System fell back to template due to LLM timeout/error."
+        narrative = (
+            "The deterministic rule engine found no anomalies in this customer's history."
+        )
         return verdict, narrative
-        
+
     verdict = f"{len(findings)} finding(s) identified."
-    lines = ["System generated fallback report (LLM unavailable):"]
+    lines = ["[Fallback report — LLM unavailable]\n"]
     for i, f in enumerate(findings, 1):
-        lines.append(f"\nFinding {i}: {f.rule_id}")
-        lines.append(f"Evidence Transactions: {', '.join(f.evidence)}")
-        lines.append(f"Summary Facts: {json.dumps(f.summary_facts)}")
-        lines.append("Next Step: Investigator to review above transactions manually.")
-        
+        lines.append(f"Finding {i}: {f.rule_id}")
+        lines.append(f"  Evidence transactions : {', '.join(f.evidence)}")
+        lines.append(f"  Summary facts         : {json.dumps(f.summary_facts)}")
+        lines.append("  Recommended action    : Investigator should manually review the above transactions.\n")
+
     return verdict, "\n".join(lines)
