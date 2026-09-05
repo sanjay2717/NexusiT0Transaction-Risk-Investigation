@@ -11,17 +11,39 @@ def generate_report(findings: List[Finding]) -> Tuple[str, str]:
         return generate_fallback_report(findings)
 
     try:
-        # Use the current google-genai SDK (google.generativeai is deprecated)
         import google.generativeai as genai  # type: ignore
         genai.configure(api_key=api_key)
-        model = genai.GenerativeModel("gemini-1.5-flash")
         prompt = _build_prompt(findings)
-        response = model.generate_content(prompt)
+
+        _MODELS = ["gemini-3.6-flash", "gemini-3.5-flash"]
+        response = None
+        used_model = None
+
+        for model_name in _MODELS:
+            try:
+                model = genai.GenerativeModel(model_name)
+                response = model.generate_content(prompt)
+                used_model = model_name
+                print(f"[llm_report] Successfully generated report using {model_name}")
+                break
+            except Exception as model_err:
+                err_type = type(model_err).__name__
+                err_msg = str(model_err)
+                if "NotFound" in err_type or "404" in err_msg:
+                    print(f"[llm_report] {model_name} not available: {err_msg[:120]}")
+                    continue  # try next model in chain
+                raise  # re-raise non-NotFound errors immediately
+
+        if response is None:
+            print(f"[llm_report] All models in chain unavailable — using fallback template.")
+            return generate_fallback_report(findings)
+
         text = response.text.strip()
         lines = text.split("\n")
         verdict = lines[0].strip()
         narrative = "\n".join(lines[1:]).strip()
         return verdict, narrative
+
 
     except ImportError as e:
         print(f"[llm_report] ImportError — SDK not installed: {type(e).__name__}: {e}")
