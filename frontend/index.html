@@ -2,83 +2,394 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <title>Transaction Risk Investigation Assistant</title>
-    <style>
-        body {
-            font-family: sans-serif;
-            margin: 20px;
-        }
+  <meta charset="UTF-8">
+  <title>Transaction Risk Investigation</title>
+  <style>
+    :root {
+      --bg: #f6f7fb;
+      --panel: #ffffff;
+      --border: #e6e8f0;
+      --text: #1a2035;
+      --muted: #6b7385;
+      --accent: #3a5ded;
+      --accent-soft: #eef1ff;
+      --clean: #1f9d55;
+      --clean-bg: #eaf7ee;
+      --clean-border: #cdecd9;
+      --flag: #b8790a;
+      --flag-bg: #fdf3e0;
+      --flag-border: #f3ddad;
+      --shadow: 0 1px 2px rgba(20, 25, 45, .04), 0 4px 16px rgba(20, 25, 45, .05);
+    }
 
-        .container {
-            display: flex;
-            gap: 20px;
-        }
+    * {
+      box-sizing: border-box;
+    }
 
-        .sidebar {
-            width: 300px;
-            border-right: 1px solid #ccc;
-            padding-right: 20px;
-        }
+    body {
+      margin: 0;
+      font-family: -apple-system, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      height: 100vh;
+      overflow: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
 
-        .content {
-            flex-grow: 1;
-        }
+    .app {
+      display: flex;
+      height: 100vh;
+    }
 
-        .customer-btn {
-            display: block;
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 5px;
-            cursor: pointer;
-            text-align: left;
-            background: #eee;
-            border: none;
-            border-radius: 4px;
-        }
+    .sidebar {
+      width: 280px;
+      background: var(--panel);
+      border-right: 1px solid var(--border);
+      overflow-y: auto;
+      flex-shrink: 0;
+      padding: 8px;
+    }
 
-        .customer-btn:hover {
-            background: #ddd;
-        }
+    .sidebar-header {
+      padding: 16px 12px 10px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
 
-        .verdict {
-            font-size: 1.5em;
-            font-weight: bold;
-            margin-bottom: 10px;
-            color: #333;
-        }
+    .customer {
+      padding: 13px 14px;
+      cursor: pointer;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: background .15s ease, transform .1s ease;
+      margin-bottom: 2px;
+    }
 
-        pre {
-            background: #f4f4f4;
-            padding: 15px;
-            border-radius: 5px;
-            white-space: pre-wrap;
-            font-family: sans-serif;
-            line-height: 1.5;
-        }
-    </style>
+    .customer:hover {
+      background: #f1f3fa;
+    }
+
+    .customer.active {
+      background: var(--accent-soft);
+    }
+
+    .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      background: #c7cbdb;
+      transition: background .2s;
+    }
+
+    .dot.clean {
+      background: var(--clean);
+    }
+
+    .dot.flag {
+      background: var(--flag);
+    }
+
+    .cname {
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .cid {
+      font-size: 11.5px;
+      color: var(--muted);
+      margin-top: 1px;
+    }
+
+    .main {
+      flex: 1;
+      overflow-y: auto;
+      padding: 36px 44px;
+    }
+
+    .empty {
+      color: var(--muted);
+      text-align: center;
+      margin-top: 140px;
+      font-size: 15px;
+    }
+
+    .verdict {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 20px;
+      border-radius: 12px;
+      margin-bottom: 26px;
+      border: 1px solid;
+      box-shadow: var(--shadow);
+    }
+
+    .verdict.clean {
+      background: var(--clean-bg);
+      border-color: var(--clean-border);
+    }
+
+    .verdict.flag {
+      background: var(--flag-bg);
+      border-color: var(--flag-border);
+    }
+
+    .verdict-badge {
+      font-size: 11.5px;
+      font-weight: 700;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 20px;
+    }
+
+    .verdict.clean .verdict-badge {
+      background: var(--clean);
+      color: #fff;
+    }
+
+    .verdict.flag .verdict-badge {
+      background: var(--flag);
+      color: #fff;
+    }
+
+    .verdict-text {
+      font-size: 14.5px;
+      color: var(--text);
+    }
+
+    .narrative {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 22px 24px;
+      margin-bottom: 28px;
+      line-height: 1.7;
+      font-size: 14.5px;
+      white-space: pre-wrap;
+      box-shadow: var(--shadow);
+    }
+
+    .section-title {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      color: var(--muted);
+      margin: 0 0 14px;
+    }
+
+    .finding {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px 20px;
+      margin-bottom: 14px;
+      box-shadow: var(--shadow);
+      transition: box-shadow .15s ease;
+    }
+
+    .finding:hover {
+      box-shadow: 0 2px 4px rgba(20, 25, 45, .06), 0 8px 20px rgba(20, 25, 45, .08);
+    }
+
+    .finding-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .rule-name {
+      font-weight: 600;
+      font-size: 14px;
+      color: var(--text);
+    }
+
+    .evidence {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 12px;
+    }
+
+    .txn-chip {
+      font-family: ui-monospace, 'SF Mono', monospace;
+      font-size: 11.5px;
+      background: #f4f5fa;
+      border: 1px solid var(--border);
+      color: var(--accent);
+      padding: 3px 9px;
+      border-radius: 6px;
+    }
+
+    .finding-facts {
+      font-size: 12.5px;
+      color: var(--muted);
+      margin-top: 10px;
+      line-height: 1.5;
+    }
+
+    .loading,
+    .error {
+      color: var(--muted);
+      padding: 20px 4px;
+      font-size: 14px;
+    }
+
+    .error {
+      color: #c0392b;
+    }
+
+    .spinner {
+      width: 14px;
+      height: 14px;
+      border: 2px solid var(--border);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      display: inline-block;
+      animation: spin .7s linear infinite;
+      margin-right: 8px;
+      vertical-align: -2px;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    h1.page-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin: 0 0 4px;
+    }
+
+    .report-sub {
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 28px;
+    }
+  </style>
 </head>
 
 <body>
-    <h1>Transaction Risk Investigation Assistant</h1>
-    <div class="container">
-        <div class="sidebar">
-            <h3>Customers</h3>
-            <div id="customer-list">Loading...</div>
-        </div>
-        <div class="content">
-            <h3 id="report-title">Select a customer to view report</h3>
-            <div id="report-content" style="display: none;">
-                <div id="verdict" class="verdict"></div>
-                <div id="narrative-container">
-                    <h4>Narrative</h4>
-                    <pre id="narrative"></pre>
-                </div>
-            </div>
-            <div id="loading" style="display: none;">Generating report...</div>
-        </div>
+  <div class="app">
+    <div class="sidebar">
+      <div class="sidebar-header">Customers</div>
+      <div id="customerList">
+        <div class="loading"><span class="spinner"></span>Loading...</div>
+      </div>
     </div>
-    <script src="/static/app.js"></script>
+    <div class="main" id="main">
+      <div class="empty">Select a customer to view their investigation report.</div>
+    </div>
+  </div>
+
+  <script>
+    // ---- Adjust these 4 lines if your API response shapes differ ----
+    const CUSTOMERS_ENDPOINT = () => `/api/customers`;                  // expects [{id or customer_id, name}]
+    const REPORT_ENDPOINT = id => `/api/customers/${id}/report`;      // expects {verdict, findings, narrative}
+    const FINDINGS_KEY = 'findings';
+    const NARRATIVE_KEY = 'narrative';
+    // -------------------------------------------------------------------
+
+    let customers = [];
+    let activeId = null;
+
+    async function loadCustomers() {
+      try {
+        const res = await fetch(CUSTOMERS_ENDPOINT());
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        customers = await res.json();
+        renderCustomerList();
+      } catch (e) {
+        document.getElementById('customerList').innerHTML =
+          `<div class="error">Couldn't load customers: ${e.message}</div>`;
+      }
+    }
+
+    function renderCustomerList() {
+      const list = document.getElementById('customerList');
+      list.innerHTML = '';
+      customers.forEach(c => {
+        const id = c.id ?? c.customer_id;
+        const name = c.name ?? id;
+        const div = document.createElement('div');
+        div.className = 'customer' + (id === activeId ? ' active' : '');
+        div.innerHTML = `<span class="dot" data-dot="${id}"></span>
+                      <div><div class="cname">${name}</div><div class="cid">${id}</div></div>`;
+        div.onclick = () => selectCustomer(id);
+        list.appendChild(div);
+      });
+    }
+
+    async function selectCustomer(id) {
+      activeId = id;
+      renderCustomerList();
+      const main = document.getElementById('main');
+      main.innerHTML = `<div class="loading"><span class="spinner"></span>Running investigation...</div>`;
+      try {
+        const res = await fetch(REPORT_ENDPOINT(id));
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const report = await res.json();
+        renderReport(report, id);
+      } catch (e) {
+        main.innerHTML = `<div class="error">Failed to load report: ${e.message}</div>`;
+      }
+    }
+
+    function renderReport(report, id) {
+      const findings = report[FINDINGS_KEY] || [];
+      const triggered = findings.filter(f => f.triggered !== false);
+      const isClean = triggered.length === 0;
+      const verdictText = report.verdict || (isClean ? 'No findings — history is consistent with established pattern.' : `${triggered.length} finding(s) identified.`);
+
+      const dot = document.querySelector(`[data-dot="${id}"]`);
+      if (dot) dot.className = 'dot ' + (isClean ? 'clean' : 'flag');
+
+      let html = `
+    <h1 class="page-title">Investigation Report</h1>
+    <div class="report-sub">Customer ${id}</div>
+    <div class="verdict ${isClean ? 'clean' : 'flag'}">
+      <span class="verdict-badge">${isClean ? 'Clean' : 'Review'}</span>
+      <span class="verdict-text">${verdictText}</span>
+    </div>`;
+
+      if (report[NARRATIVE_KEY]) {
+        html += `<div class="narrative">${escapeHtml(report[NARRATIVE_KEY])}</div>`;
+      }
+
+      if (triggered.length) {
+        html += `<div class="section-title">Findings</div>`;
+        triggered.forEach(f => {
+          const evidence = f.evidence || f.evidence_ids || f.transactions || [];
+          html += `<div class="finding">
+        <div class="finding-head"><span class="rule-name">${f.rule_id || f.rule || 'Finding'}</span></div>
+        ${f.summary || f.reason ? `<div>${escapeHtml(f.summary || f.reason)}</div>` : ''}
+        ${evidence.length ? `<div class="evidence">${evidence.map(t => `<span class="txn-chip">${t}</span>`).join('')}</div>` : ''}
+        ${f.summary_facts ? `<div class="finding-facts">${escapeHtml(JSON.stringify(f.summary_facts))}</div>` : ''}
+      </div>`;
+        });
+      }
+
+      document.getElementById('main').innerHTML = html;
+    }
+
+    function escapeHtml(str) {
+      const d = document.createElement('div');
+      d.innerText = str;
+      return d.innerHTML;
+    }
+
+    loadCustomers();
+  </script>
 </body>
 
 </html>
