@@ -19,9 +19,10 @@ def get_customer_data(cust_id: str):
         data = json.load(f)
         
     valid_txns = []
+    required_fields = ['txn_id', 'date', 'description', 'payee', 'amount', 'channel']
     for t in data.get('transactions', []):
         try:
-            if 'txn_id' in t and 'amount' in t and 'date' in t:
+            if all(f in t for f in required_fields):
                 valid_txns.append(t)
             else:
                 print(f"Skipping malformed transaction in {cust_id}")
