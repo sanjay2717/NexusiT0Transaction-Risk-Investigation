@@ -339,6 +339,31 @@
         transform: rotate(360deg);
       }
     }
+
+    .fade-out-content > * {
+      opacity: 0 !important;
+      transition: opacity 150ms ease-out;
+    }
+
+    .animate-slide-up {
+      opacity: 0;
+      animation: slideUpFadeIn 250ms ease-out forwards;
+    }
+    
+    .animate-scale-in {
+      opacity: 0;
+      animation: scaleInFade 250ms ease-out forwards;
+    }
+
+    @keyframes slideUpFadeIn {
+      0% { opacity: 0; transform: translateY(10px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    
+    @keyframes scaleInFade {
+      0% { opacity: 0; transform: scale(0.98); }
+      100% { opacity: 1; transform: scale(1); }
+    }
   </style>
 </head>
 
@@ -397,14 +422,29 @@
       activeId = id;
       renderCustomerList();
       const main = document.getElementById('main');
-      main.innerHTML = `<div class="loading"><span class="spinner"></span>Running investigation...</div>`;
+      
+      main.classList.add('fade-out-content');
+      
+      const req = fetch(REPORT_ENDPOINT(id));
+      let fetchDone = false;
+      req.then(() => fetchDone = true).catch(() => fetchDone = true);
+      
+      await new Promise(r => setTimeout(r, 150));
+      
+      if (!fetchDone) {
+        main.classList.remove('fade-out-content');
+        main.innerHTML = `<div class="loading animate-slide-up"><span class="spinner"></span>Running investigation...</div>`;
+      }
+      
       try {
-        const res = await fetch(REPORT_ENDPOINT(id));
+        const res = await req;
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const report = await res.json();
+        main.classList.remove('fade-out-content');
         renderReport(report, id);
       } catch (e) {
-        main.innerHTML = `<div class="error">Failed to load report: ${e.message}</div>`;
+        main.classList.remove('fade-out-content');
+        main.innerHTML = `<div class="error animate-slide-up">Failed to load report: ${e.message}</div>`;
       }
     }
 
@@ -421,25 +461,26 @@
       if (dot) dot.className = 'dot ' + (isClean ? 'clean' : 'flag');
 
       let html = `
-    <div class="breadcrumb">Customers <span class="breadcrumb-sep">/</span> <span class="breadcrumb-current">${customerName}</span></div>
-    <h1 class="page-title">Investigation Report</h1>
+    <div class="breadcrumb animate-slide-up">Customers <span class="breadcrumb-sep">/</span> <span class="breadcrumb-current">${customerName}</span></div>
+    <h1 class="page-title animate-slide-up" style="animation-delay: 20ms">Investigation Report</h1>
     
-    <div class="verdict ${isClean ? 'clean' : 'flag'}">
+    <div class="verdict ${isClean ? 'clean' : 'flag'} animate-scale-in" style="animation-delay: 40ms">
       <span class="verdict-badge">${isClean ? 'Clean' : 'Review'}</span>
       <span class="verdict-text">${verdictText}</span>
     </div>`;
 
       if (report[NARRATIVE_KEY]) {
-        html += `<div class="narrative">${escapeHtml(report[NARRATIVE_KEY])}</div>`;
+        html += `<div class="narrative animate-slide-up" style="animation-delay: 60ms">${escapeHtml(report[NARRATIVE_KEY])}</div>`;
       }
 
       if (triggered.length) {
-        html += `<details class="findings-container">
+        html += `<details class="findings-container animate-slide-up" style="animation-delay: 80ms">
           <summary class="section-title">Structured Findings Data (${triggered.length})</summary>
           <div class="findings-list">`;
-        triggered.forEach(f => {
+        triggered.forEach((f, index) => {
           const evidence = f.evidence || f.evidence_ids || f.transactions || [];
-          html += `<div class="finding">
+          const delay = 100 + (index * 40);
+          html += `<div class="finding animate-slide-up" style="animation-delay: ${delay}ms">
         <div class="finding-head"><span class="rule-name">${f.rule_id || f.rule || 'Finding'}</span></div>
         ${f.summary || f.reason ? `<div>${escapeHtml(f.summary || f.reason)}</div>` : ''}
         ${evidence.length ? `<div class="evidence">${evidence.map(t => `<span class="txn-chip">${t}</span>`).join('')}</div>` : ''}
