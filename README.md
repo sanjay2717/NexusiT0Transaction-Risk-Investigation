@@ -99,7 +99,3 @@ The system currently evaluates transactions against the following baseline heuri
 | **Rule 4: Stat Outlier** | Flags transactions whose amount exceeds a `2.5 z-score` deviation from the customer's mean (skips transactions already caught by Rule 1). |
 
 ---
-
-## 🎬 Demo
-
-**Demo Video Link:** *(Add your video link here)*
