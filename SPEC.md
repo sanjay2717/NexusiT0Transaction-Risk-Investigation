@@ -136,7 +136,6 @@ What it does (2-3 sentences)
 How to run (pip install -r requirements.txt && python app.py, then http://localhost:8000)
 What data you generated and how (point to data/generate_data.py)
 Env vars needed: GEMINI_API_KEY
-Demo video link: <fill in>
 ```
 
 ## 13. Demo video (2-3 min) — what to actually show
